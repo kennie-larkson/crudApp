@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Your Favorite Todo App</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css?family=Fira+Sans|Montserrat|Playfair+Display&display=swap');
+        span{ color: red; font-family: 'Montserrat', sans-serif;}
+        body{ font-family: 'Fira Sans', sans-serif; align-content: center; justify-content: center;
+        display: flex; background: gainsboro;}
+        button{ color: white; background: blue;  border: none; font-size: 16px;}
+        button :focus{border: green;}
+        .container{
+            /*position: relative;*/
+            padding: 5px 20px;
+            margin: 40px 0;
+            border: 2px solid limegreen;
+            border-radius: 15px;
+            width: 30%;
+            background: lightgray;
+        }
+        h2{ font-family: 'Playfair Display', serif;}
+        label, input, button{
+            padding: 5px 5px;
+            margin: 10px 0;
+        }
+       /* input{ border-radius: 10px;}*/
+       input{border: none; outline: none;}
+        input:focus { border: 2px solid green; border-radius: 10px;}
+        li{
+            padding-bottom: 10px;
+            color: black;
+        }
+        footer{
+            color: black;
+        }
+        a{
+            text-decoration: none;
+        }
+        hr{background: black;}
+        
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Your Favorite Todo App</h2>
+        <hr>
+        <form  action="">
+            <label for="input">Enter your todo:</label>
+            <input type="text" name="input-field" id="input" placeholder="e.g. do my homework" >
+            
+        </form>
+
+        <button id="btn" >Update List</button>
+
+        <!--<button id="btn" onclick="myFunction();">Update List</button>-->
+
+        <h3 id="subheading"></h3>
+        <p id="complain"></p>
+        <p id="list"></p>
+        <p id="storage"></p>
+        <hr>
+
+        <footer><small>Proudly designed by <a href="http://twitter.com/kennie_larkson">JavaScript Student</a></small></footer>
+
+        
+
+    </div>
+    <div id="msg">
+        <pre></pre>
+    </div>
+    
+
+
+    <script>
+        let todos = [];
+        const addTodo = () =>{
+            /*if the event button were to be inside the form tag in the HTML, we'd have to pass event(e/ev) as an argument to the 
+            addTodo function and begin the function code with ev.preventDefault() so the form does not submit by default(as expected)
+            since we have other intentions for the data  */
+            let todo = { /*saving data (key:value pair) as a javascript object*/
+                id : Date.now(),
+                input : document.getElementById('input').value
+            }
+            todos.push(todo); /*adding todo object to the todos array*/
+            console.warn('added', {todo});/*to display on console*/
+            /*document.querySelector('#msg pre').textContent = '\n' + JSON.stringify(todos, '\t', 2); adding the Json object to DOM*/
+            /*saving to local storage*/
+            localStorage.setItem('MyTodoList', JSON.stringify(todos));
+            const inputField = document.getElementById('input');
+            const entry = inputField.value;
+            if(entry === ""){
+                document.getElementById('complain').innerHTML = `
+                <span>**Please update your todo by typing in the input field**</span><br>`;
+                
+            }else {
+                document.getElementById('complain').innerHTML = "";
+                document.getElementById('subheading').innerHTML = 
+                `Todo list updated<br>`;
+                
+                let li = document.createElement('li');
+                let todoItem = `${entry} <br>`;
+                li.innerHTML =  todoItem;
+                
+                document.getElementById('list').append(li);
+            
+                
+            }
+            document.querySelector('form').reset();
+            /* Or document.forms[0].reset();  to clear the form for the next entries*/
+            /*windows.localStorage.setItem('todo', todo); 
+            document.querySelector('form').reset();*/
+            /*inputField.value = "";*/            
+        }
+        /*ensuring the DOM content has loaded completely before any actions are taken*/
+        document.addEventListener('DOMContentLoaded', ()=>{document.getElementById('btn').addEventListener('click', addTodo);});
+    </script>
+</body>
+</html>
