@@ -68,8 +68,6 @@
 
         <footer><small>Proudly designed by <a href="http://twitter.com/kennie_larkson">JavaScript Student</a></small></footer>
 
-        
-
     </div>
     <div id="msg">
         <pre></pre>
@@ -104,8 +102,9 @@
                 `Todo list updated<br>`;
                 
                 let li = document.createElement('li');
-                let todoItem = `${entry} <br>`;
-                li.innerHTML =  todoItem;
+                // let todoItem = `${entry} <br>`;
+                let todoItem = JSON.parse(localStorage.getItem('MyTodoList'));
+                li.innerHTML =  todoItem.input;
                 
                 document.getElementById('list').append(li);
             
