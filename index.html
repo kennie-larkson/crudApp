@@ -89,7 +89,7 @@
             console.warn('added', {todo});/*to display on console*/
             /*document.querySelector('#msg pre').textContent = '\n' + JSON.stringify(todos, '\t', 2); adding the Json object to DOM*/
             /*saving to local storage*/
-            localStorage.setItem('MyTodoList', JSON.stringify(todos));
+            localStorage.setItem('MyTodoList', JSON.stringify(todo));
             const inputField = document.getElementById('input');
             const entry = inputField.value;
             if(entry === ""){
@@ -102,8 +102,8 @@
                 `Todo list updated<br>`;
                 
                 let li = document.createElement('li');
-                // let todoItem = `${entry} <br>`;
-                let todoItem = JSON.parse(localStorage.getItem('MyTodoList'));
+                // let todoItem = `${entry} <br>`; retrieved from DOM
+                let todoItem = JSON.parse(localStorage.getItem('MyTodoList'));/*retrieve from localStorage*/
                 li.innerHTML =  todoItem.input;
                 
                 document.getElementById('list').append(li);
